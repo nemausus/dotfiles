@@ -1,0 +1,30 @@
+[alias]
+  unstage = reset HEAD --
+  diffp = !git diff "$1"~
+  graph = log --graph --date-order -C -M --pretty=oneline --all --date=short --decorate --abbrev-commit
+  lg = log --format="%Cred%<(9)%h%Cblue%<(16,trunc)%cr%Cgreen%<(18,trunc)%an%Creset%s%Creset"
+  co = checkout 
+  br = branch -v
+  st = status
+  dc = diff --cached
+  ad = add --all
+[color]
+  ui = true
+  branch = true
+  diff = true
+  interactive = true
+[treediff]
+    tool = vimdiff.py
+[core]
+    preloadindex = true
+[user]
+  email = naresh.kumar@thoughtspot.com
+  name = naresh
+[diff]
+	tool = vimdiff
+[merge]
+	tool = vimdiff
+[difftool]
+	prompt = false
+[mergetool]
+	prompt = false

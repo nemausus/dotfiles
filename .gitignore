@@ -1,0 +1,105 @@
+# Author: Naresh Kumar
+
+# Compiled source #
+###################
+*.a
+*.class
+*.dll
+*.dylib
+*.exe
+*.la
+*.lai
+*.lo
+*.o
+*.slo
+*.so
+*.pb.h
+*.pb.cc
+
+
+# Packages #
+############
+*.7z
+*.dmg
+*.ear
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.tgz
+*.war
+*.zip
+
+# Logs and databases #
+######################
+*.log
+
+# Temporary files    #
+######################
+# Emacs
+*~
+*.BAK
+*.CKP
+
+# ctags, cscope etc #
+#####################
+tags
+cscope*.out
+GPATH
+GRTAGS
+GSYMS
+GTAGS
+
+# build/scons related files
+.sconsign.dblite
+scons/*.pyc
+build-dbg
+build-opt
+build-out
+build-release
+
+# VIM
+.*.swp
+.*.swo
+.*ycm_extra_conf.py*
+.ropeproject
+.agignore
+
+# Eclipse settings dir #
+########################
+.settings
+.pydevproject
+
+# Intellij Files #
+.idea
+*.iml
+*.iws
+*.project
+*.cproject
+
+# SublimeText temporary files #
+._*
+
+# Git merge temporary files
+*.orig
+
+# OS X
+*._.DS_Store
+.DS_Store
+
+# Python
+*.pyc
+
+# tmux
+screen-256color.ti
+
+#Visual Studio
+.vscode
+
+# Eclipse Files
+*.MF
+build.properties
+
+# Devdocker default config file
+.devdocker_default

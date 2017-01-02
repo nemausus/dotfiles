@@ -1,0 +1,10 @@
+# bash completion.
+[ -f $(brew --prefix)/etc/bash_completion ] && . $(brew --prefix)/etc/bash_completion
+
+# default vim 7.3 does not support YouCompleteMe.
+alias vim='/Applications/MacVim.app/Contents/MacOS/Vim'
+alias gvim='/Applications/MacVim.app/Contents/MacOS/MacVim'
+
+export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_73.jdk/Contents/Home"
+export CLICOLOR=1
+
