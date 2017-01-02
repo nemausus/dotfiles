@@ -15,10 +15,10 @@ esac
 [ -f /etc/bash_completion ] && . /etc/bash_completion
 
 # Source linux configs
-[[ $OSTYPE == "linux-gnu" ]] && . ~/notes/bashrc_linux
+[[ $OSTYPE == "linux-gnu" ]] && . ~/dotfiles/bashrc_linux
 
 # Source mac configs
-[[ $OSTYPE == "darwin15" ]] && . ~/notes/bashrc_mac
+[[ $OSTYPE == "darwin15" ]] && . ~/dotfiles/bashrc_mac
 
 # Source work configs
 [ -f ~/.bashrc_ts ] && . ~/.bashrc_ts
