@@ -86,6 +86,14 @@ function rebase () {
   git rebase master
 }
 
+function gitsync () {
+  git co master
+  git pull --rebase
+  git fetch -p
+  git co origin/$1
+  git co -b $1
+}
+
 function extract () {
   case $1 in
     *.tar.bz2) tar xjf "$1" ;;
