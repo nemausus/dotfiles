@@ -8,6 +8,7 @@
   st = status
   dc = diff --cached
   ad = add --all
+  re = rebase
 [color]
   ui = true
   branch = true
