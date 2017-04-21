@@ -49,6 +49,7 @@ let g:ctrlp_working_path_mode = 'a'
 let g:ctrlp_match_window = 'max:10,results:10'
 let g:ctrlp_root_markers = ['pom.xml']
 let g:ctrlp_user_command = 'cd %s && git ls-files -oc --exclude-standard | grep -vE ".(json|go|res|html|txt|prt)$"' 
+let g:ctrlp_pwd = '.'
 
 " configure clang format plugin
 let g:clang_format#command = 
@@ -131,12 +132,9 @@ nnoremap <leader>a :e %:r.hpp<CR>
 nnoremap <leader>b :CtrlPBuffer<CR>
 map      <leader>c :normal 0i//<CR>
 nnoremap <leader>e :e %:h<CR>
-nnoremap <leader>f :CtrlP 
+nnoremap <leader>f :execute "CtrlP ".g:ctrlp_pwd<CR>
 nnoremap <leader>g mG :Ggrep <C-r><C-w> 
-nnoremap <leader>h <C-w><C-h>
-nnoremap <leader>j <C-w><C-j>
-nnoremap <leader>k <C-w><C-k>
-nnoremap <leader>l <C-w><C-l>
+nnoremap <leader>k :ClangFormat<CR>
 nnoremap <leader>n :NERDTreeFind<CR>
 nnoremap <leader>p <C-w>}
 nnoremap <leader>s :e %:r.cpp<CR>
@@ -150,11 +148,10 @@ map      <leader>z va}zf
 " Enable filtering in command mode when going through history
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
-nnoremap <C-h> :tabp<CR>
-nnoremap <C-l> :tabn<CR>
-" Enable clang format
-map <C-K> :ClangFormat<CR>
-imap <C-K> <ESC>:ClangFormat<CR>i
+nnoremap <C-h> <C-w><C-h>
+nnoremap <C-j> <C-w><C-j>
+nnoremap <C-k> <C-w><C-k>
+nnoremap <C-l> <C-w><C-l>
 
 " search for visual selection using * and #
 xnoremap * :<C-u>call <SID>VSetSearch()<CR>/<C-R>=@/<CR><CR>
