@@ -134,7 +134,7 @@ map      <leader>c :normal 0i//<CR>
 nnoremap <leader>e :e %:h<CR>
 nnoremap <leader>f :execute "CtrlP ".g:ctrlp_pwd<CR>
 nnoremap <leader>g mG :Ggrep <C-r><C-w> 
-nnoremap <leader>k :ClangFormat<CR>
+map <leader>k :ClangFormat<CR>
 nnoremap <leader>n :NERDTreeFind<CR>
 nnoremap <leader>p <C-w>}
 nnoremap <leader>s :e %:r.cpp<CR>
