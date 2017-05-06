@@ -16,7 +16,7 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'altercation/vim-colors-solarized'
-Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'junegunn/fzf.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'nemausus/vim-copyright'
 Plugin 'nemausus/vim-cscope'
@@ -32,6 +32,8 @@ Plugin 'tpope/vim-unimpaired'
 " All of your Plugins must be added before the following line
 call vundle#end()
 
+set rtp+=~/.fzf
+
 " configure ycm plugin
 let g:ycm_always_populate_location_list = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
@@ -40,16 +42,6 @@ let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_complete_in_comments = 1
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_seed_identifiers_with_syntax = 1
-
-" configure ctrlp plugin
-let g:ctrlp_map = '<C-f>'
-let g:ctrlp_cmd = 'CtrlPMixed'
-let g:ctrlp_by_filename = 1
-let g:ctrlp_working_path_mode = 'a'
-let g:ctrlp_match_window = 'max:10,results:10'
-let g:ctrlp_root_markers = ['pom.xml']
-let g:ctrlp_user_command = 'cd %s && git ls-files -oc --exclude-standard | grep -vE ".(json|go|res|html|txt|prt)$"' 
-let g:ctrlp_pwd = '.'
 
 " configure clang format plugin
 let g:clang_format#command = 
@@ -129,10 +121,10 @@ let mapleader = ","
 nnoremap <leader>, ,
 nnoremap <leader>/ :nohlsearch<CR>
 nnoremap <leader>a :e %:r.hpp<CR>
-nnoremap <leader>b :CtrlPBuffer<CR>
+map      <leader>b :Buffers<CR>
 map      <leader>c :normal 0i//<CR>
 nnoremap <leader>e :e %:h<CR>
-nnoremap <leader>f :execute "CtrlP ".g:ctrlp_pwd<CR>
+map      <leader>f :GFiles<CR>
 nnoremap <leader>g mG :Ggrep <C-r><C-w> 
 map <leader>k :ClangFormat<CR>
 nnoremap <leader>n :NERDTreeFind<CR>

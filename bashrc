@@ -168,3 +168,5 @@ export PATH=/usr/local/mysql/bin:$PATH
 export NVM_DIR="~/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 export NODE_PATH='/usr/local/lib/jsctags:${NODE_PATH}'
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
