@@ -115,6 +115,7 @@ set path+=**                   " find file recursively
 set scrolloff=999              " better scrolling
 set clipboard=unnamed          " work with system clipboard
 set mouse=a                    " set mouse scroll
+set cm=blowfish2               " set cryptmethod to blowfish2
 
 " Define custom mappings with , as leader.
 let mapleader = ","
