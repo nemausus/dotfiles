@@ -33,6 +33,7 @@ Plugin 'tpope/vim-unimpaired'
 call vundle#end()
 
 set rtp+=~/.fzf
+set rtp+=/usr/local/opt/fzf
 
 " configure ycm plugin
 let g:ycm_always_populate_location_list = 1
@@ -43,9 +44,6 @@ let g:ycm_complete_in_comments = 1
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_seed_identifiers_with_syntax = 1
 
-" configure clang format plugin
-let g:clang_format#command = 
-  \ '/usr/local/scaligent/toolchain/crosstool/v2/clang/3.4/bin/clang-format'
 set makeprg=scons
 
 " configure solarized plugin
@@ -158,11 +156,9 @@ endfunction
 
 " Autorefresh
 set autoread
-" Check for changes and autoload them after 2 seconds of inactivity.
-au CursorHold * checktime 
-" reload when entering the buffer or gaining focus
+" Reload when entering the buffer or gaining focus
 au FocusGained,BufEnter * :silent! !
-"save when exiting the buffer or losing focus
+" Save when exiting the buffer or losing focus
 au FocusLost,WinLeave * :silent! w
 
 " Kill any trailing whitespace on save.

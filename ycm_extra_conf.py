@@ -46,7 +46,7 @@ flags = [
 '-Wno-sign-compare',
 '-Wno-unused-local-typedefs',
 '-Wno-unused-parameter',
-'-Wno-unused-functions',
+'-Wno-unused-function',
 '-Wno-unknown-pragmas',
 '-Wno-variadic-macros',
 '-fexceptions',

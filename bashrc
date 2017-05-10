@@ -15,10 +15,10 @@ esac
 [ -f /etc/bash_completion ] && . /etc/bash_completion
 
 # Source linux configs
-[[ $OSTYPE == "linux-gnu" ]] && . ~/dotfiles/bashrc_linux
+[[ $(uname -s) == "Linux" ]] && . ~/dotfiles/bashrc_linux
 
 # Source mac configs
-[[ $OSTYPE == "darwin15" ]] && . ~/dotfiles/bashrc_mac
+[[ $(uname -s) == "Darwin" ]] && . ~/dotfiles/bashrc_mac
 
 # Source work configs
 [ -f ~/.bashrc_ts ] && . ~/.bashrc_ts
@@ -90,6 +90,7 @@ function gitsync () {
   git co master
   git pull --rebase
   git fetch -p
+  git branch | grep -v "master" | xargs git branch -D
   git co origin/$1
   git co -b $1
 }
