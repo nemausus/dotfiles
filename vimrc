@@ -111,7 +111,7 @@ set splitright                 " open file to right in split view
 set wildmode=list:full         " bash like tab completion in command mode
 set path+=**                   " find file recursively
 set scrolloff=999              " better scrolling
-set clipboard=unnamed          " work with system clipboard
+set clipboard=unnamedplus      " work with system clipboard
 set mouse=a                    " set mouse scroll
 set cm=blowfish2               " set cryptmethod to blowfish2
 
