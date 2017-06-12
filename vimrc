@@ -32,6 +32,37 @@ Plugin 'tpope/vim-unimpaired'
 " All of your Plugins must be added before the following line
 call vundle#end()
 
+" keyboard shortcuts added by above plugins
+" vim-gitgutter
+"   [c ]c : Jump between changed hunks
+"   <leader>hp hs hu : preview, stage and undo chunks
+"
+" vim-cscope
+"   's'   symbol: find all references to the token under cursor
+"   'g'   global: find global definition(s) of the token under cursor
+"   'c'   calls:  find all calls to the function name under cursor
+"   't'   text:   find all instances of the text under cursor
+"   'e'   egrep:  egrep search for the word under cursor
+"   'f'   file:   open the filename under cursor
+"   'i'   includes: find files that include the filename under cursor
+"   'd'   called: find functions that function under cursor calls
+"
+" vim-abolish
+"   crs : change to snake_case.
+"   crm : change to MixedCase.
+"   crc : change to camelCase.
+"   cru : change to UPPER_CASE.
+"   cr- : change to dash-case.
+"   cr. : change to dot.case.
+"   cr<space> : chage to space case.
+"   crt : change to Title case.
+"
+" vim-surround
+"   cs"' : change "hello world" to 'hello world'
+"   ds"  : change "hello world" to hello world
+"   yssb : surround entire line by )
+"   ysiw} : surround current word by }
+
 set rtp+=~/.fzf
 set rtp+=/usr/local/opt/fzf
 
