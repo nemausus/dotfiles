@@ -171,3 +171,9 @@ export NVM_DIR="~/.nvm"
 export NODE_PATH='/usr/local/lib/jsctags:${NODE_PATH}'
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/naresh.kumar/Downloads/google-cloud-sdk/path.bash.inc' ]; then source '/Users/naresh.kumar/Downloads/google-cloud-sdk/path.bash.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/naresh.kumar/Downloads/google-cloud-sdk/completion.bash.inc' ]; then source '/Users/naresh.kumar/Downloads/google-cloud-sdk/completion.bash.inc'; fi
