@@ -90,6 +90,7 @@ set expandtab       " substitute spaces for tabs
 set autoindent      " carry indent over to new lines
 autocmd Filetype java setlocal tabstop=4 shiftwidth=4 softtabstop=4
 autocmd Filetype javascript setlocal tabstop=4 shiftwidth=4 softtabstop=4
+autocmd Filetype typescript setlocal tabstop=4 shiftwidth=4 softtabstop=4
 
 " better tab completion of file names
 set wildmode=longest,list,full
@@ -200,7 +201,8 @@ fu! <SID>StripTrailingWhitespaces()
   %s/\s\+$//e
   call cursor(l, c)
 endfu
-autocmd FileType c,cc,cpp,h,hpp,haskell,javascript,php,python,ruby,thrift,proto
+autocmd FileType
+  \ c,cc,cpp,h,hpp,haskell,javascript,php,python,ruby,thrift,proto,typescript
   \ autocmd BufWritePre <buffer>
   \ :call <SID>StripTrailingWhitespaces()
 

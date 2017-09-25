@@ -9,7 +9,7 @@ case $- in
 esac
 
 # Source global definitions
-[ -f /etc/bashrc ] && . /etc/bashrc
+[ -f /etc/bash.bashrc ] && . /etc/bash.bashrc
 
 # Source bash completion.
 [ -f /etc/bash_completion ] && . /etc/bash_completion
@@ -22,6 +22,13 @@ esac
 
 # Source work configs
 [ -f ~/.bashrc_ts ] && . ~/.bashrc_ts
+
+# Source alias definitions.
+# You may want to put all your additions into a separate file like
+# ~/.bash_aliases, instead of adding them here directly.
+# See /usr/share/doc/bash-doc/examples in the bash-doc package.
+
+[ -f ~/.bash_aliases ] && . ~/.bash_aliases
 
 ############################ BEGIN FUNCTIONS ###################################
 # Returns current git branch.
@@ -86,13 +93,19 @@ function rebase () {
   git rebase master
 }
 
-function gitsync () {
+function gitpull () {
   git co master
   git pull --rebase
   git fetch -p
   git branch | grep -v "master" | xargs git branch -D
   git co origin/$1
   git co -b $1
+}
+
+function gitpush () {
+  ssh naresh@devbox -t "cd thoughtspot && git checkout master"
+  git push origin $1 -f
+  ssh naresh@devbox -t "cd thoughtspot && git checkout $1"
 }
 
 function extract () {
