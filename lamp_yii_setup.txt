@@ -1,0 +1,34 @@
+sudo apt-get update
+sudo apt-get install apache2 php libapache2-mod-php # install apache
+sudo apt-get install mysql-server php-mysql php-pear # install mysql
+sudo mysql_secure_installation # optional, security checks for mysql
+
+# apache setup
+git clone {project}
+sudo vim /etc/apache2/sites-available/000-default.conf # change document root to {project}/public_html
+# add {project}/public_html in <Directory> tag same as /var/www chage AllowOverride Node to all
+sudo vim /etc/apache2/apache2.conf
+# ebable rewrite mode
+sudo ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/rewrite.load
+sudo chgrp www-data {project}/public_html/assets/
+sudo chmod g+w {project}/public_html/assets/ # provides write access to www-data user
+sudo chgrp www-data {project}/protected/runtime
+sudo chmod g+w {project}/protected/runtime # provides write access to www-data user
+sudo service apache2 restart
+
+# allocate swap if missing
+sudo fallocate -l 1G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+sudo swapon -s
+sudo vim /etc/fstab # add line /swapfile none swap sw 0 0
+
+# yii setup
+sudo apt-get install curl php-cli php-mycrypt php-gd php-mbstring zip # install yii2 dependecies
+curl -sS https://getcomposer.org/installer | php # install composer
+sudo mv composer.phar /usr/local/bin/composer
+cd {project}/protectd && composer update yiisoft/yii2-composer
+composer update
+sudo service apache2 restart
+mysql -u root -p aasdb < apnaarra_apna.sql
