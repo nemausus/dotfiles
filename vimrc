@@ -224,11 +224,14 @@ endfunction
 command! -nargs=+ -complete=command TabMessage call TabMessage(<q-args>)
 
 "grep current file and open results in new tab.
-command! -nargs=1 Filter execute 'tabnew /tmp/filter.log|%d|0r!grep <args> -sh #'
+command! -nargs=1 Filter execute 'lv <args> %:p | tab lopen'
 
 " Jump to address
 function! GoToAddress()
   let addr=matchstr(getline("."), '0x\x\+')
+  if empty(addr)
+    let addr="0x".matchstr(getline("."), '\x\+')
+  endif
   let outfile=bufname("%")
   let binary=strpart(outfile, 0, strlen(outfile) - 7)
   let line=system("addr2line -e ".binary." ".addr)

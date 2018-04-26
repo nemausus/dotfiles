@@ -87,10 +87,10 @@ function stest () {
 
 function rebase () {
   branch=$(git_branch)
-  git co master
+  git co $1
   git pull --rebase
   git co $branch
-  git rebase master
+  git rebase $1
 }
 
 function gitpull () {
