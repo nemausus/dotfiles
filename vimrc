@@ -63,9 +63,25 @@ call vundle#end()
 "   ds"  : change "hello world" to hello world
 "   yssb : surround entire line by )
 "   ysiw} : surround current word by }
+"
+"  vim-unimpaired
+"    ]c [c : Naviagte changed hunks. 
+"    ]n [n : Navigate merge conflicts.
+"    ]f [f : Navigate files in current directory.
+"    ]q [q : Naviagte quickfix list. (:cnext :cprevious)
+"    ]Q [Q :                         (:clast :cfirst)
+"    ]l [l : Naviagte location list. (:lnext :lprevious)
+"    ]L [L :                         (:llast :lfirst)
+"    ]a [a : Navigate files from argument list. (:next :previous)
+"    ]A [A :                                    (:last :first)
+"    ]b [b : Naviagte buffers. (:bnext :bprevious)
+"    ]B [B :                   (:blast :bfirst)
+"    ]t [t : Naviagte tag list. (:tnext :tprevious)
+"    ]T [T :                    (:tlast :tfirst)
 
 set rtp+=~/.fzf
 set rtp+=/usr/local/opt/fzf
+let g:fzf_history_dir = '~/.local/share/fzf-history'
 
 " configure ycm plugin
 let g:ycm_always_populate_location_list = 1
@@ -148,6 +164,7 @@ set clipboard=unnamed          " work with system clipboard
 set mouse=a                    " set mouse scroll
 set cm=blowfish2               " set cryptmethod to blowfish2
 
+:map <2-LeftMouse> g]
 " Define custom mappings with , as leader.
 let mapleader = ","
 nnoremap <leader>, ,
@@ -236,7 +253,7 @@ function! GoToAddress()
   let binary=strpart(outfile, 0, strlen(outfile) - 7)
   let line=system("addr2line -e ".binary." ".addr)
   let file=split(split(line)[0], ":")
-  silent execute ':e +'.file[1]." ".file[0]
+  silent execute ':vs +'.file[1]." ".file[0]
   echom line
 endfunction
 nmap <leader>gf :call GoToAddress()<CR>

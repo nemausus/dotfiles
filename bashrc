@@ -54,7 +54,7 @@ function exfind () {
 
 # Generates ctags.
 function genctags () {
-  exfind $1 | ctags -L -
+  exfind $1 | ctags --extra=+q -L -
 }
 
 # Generates ctags and cscope tags.
