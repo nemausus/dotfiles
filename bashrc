@@ -54,7 +54,7 @@ function exfind () {
 
 # Generates ctags.
 function genctags () {
-  exfind $1 | ctags --extra=+q -L -
+  exfind $1 | ctags --extras=+q -L -
 }
 
 # Generates ctags and cscope tags.
@@ -122,6 +122,7 @@ function extract () {
     *.tgz) tar xzf "$1" ;;
     *.txz) tar Jxvf "$1" ;;
     *.zip) unzip "$1" ;;
+    *.gz) gunzip "$1" ;;
     *) echo "'$1' cannot be extracted" ;;
   esac
 }

@@ -91,8 +91,7 @@ let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_complete_in_comments = 1
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_seed_identifiers_with_syntax = 1
-
-set makeprg=scons
+set completeopt-=preview
 
 " configure solarized plugin
 set background=dark
@@ -164,7 +163,6 @@ set clipboard=unnamed          " work with system clipboard
 set mouse=a                    " set mouse scroll
 set cm=blowfish2               " set cryptmethod to blowfish2
 
-:map <2-LeftMouse> g]
 " Define custom mappings with , as leader.
 let mapleader = ","
 nnoremap <leader>, ,
@@ -175,11 +173,12 @@ map      <leader>c :normal 0i//<CR>
 nnoremap <leader>e :e %:h<CR>
 map      <leader>f :GFiles<CR>
 nnoremap <leader>g mG :Ggrep <C-r><C-w> 
-map <leader>k :ClangFormat<CR>
+map      <leader>k :ClangFormat<CR>
 nnoremap <leader>n :NERDTreeFind<CR>
 nnoremap <leader>p <C-w>}
+nnoremap <leader>q :BTags<CR>
 nnoremap <leader>s :e %:r.cpp<CR>
-nnoremap <leader>t :TagbarToggle<CR>
+nnoremap <leader>t :Tags<CR>
 map      <leader>u :s/^\s*\/\///<CR>
 nnoremap <leader>v :vs %:h<CR>
 nnoremap <leader>w <C-w>W
