@@ -19,7 +19,6 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'junegunn/fzf.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'nemausus/vim-copyright'
-Plugin 'nemausus/vim-cscope'
 Plugin 'nemausus/vim-headerguard'
 Plugin 'nemausus/vim-log-syntax'
 Plugin 'rhysd/vim-clang-format'
@@ -37,16 +36,6 @@ call vundle#end()
 " vim-gitgutter
 "   [c ]c : Jump between changed hunks
 "   <leader>hp hs hu : preview, stage and undo chunks
-"
-" vim-cscope
-"   's'   symbol: find all references to the token under cursor
-"   'g'   global: find global definition(s) of the token under cursor
-"   'c'   calls:  find all calls to the function name under cursor
-"   't'   text:   find all instances of the text under cursor
-"   'e'   egrep:  egrep search for the word under cursor
-"   'f'   file:   open the filename under cursor
-"   'i'   includes: find files that include the filename under cursor
-"   'd'   called: find functions that function under cursor calls
 "
 " vim-abolish
 "   crs : change to snake_case.
