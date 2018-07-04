@@ -71,17 +71,17 @@ function mcd () {
 
 function sopt () {
   cd ~/thoughtspot
-  scons mode=opt -j24 $@
+  scons mode=opt -j20 $@
   cd -
 }
 
 function sdbg () {
-  scons mode=dbg -j24 $@
+  scons mode=dbg -j20 $@
 }
 
 function stest () {
   cd ~/thoughtspot
-  scons runtests=default -j24 $@
+  scons runtests=default -j20 $@
   cd -
 }
 

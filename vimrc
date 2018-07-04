@@ -27,7 +27,6 @@ Plugin 'tpope/vim-abolish'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
-Plugin 'leafgarland/typescript-vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()
@@ -70,7 +69,7 @@ call vundle#end()
 
 set rtp+=~/.fzf
 set rtp+=/usr/local/opt/fzf
-let g:fzf_history_dir = '~/.local/share/fzf-history'
+"let g:fzf_history_dir = '~/.local/share/fzf-history'
 
 " configure ycm plugin
 let g:ycm_always_populate_location_list = 1
@@ -154,24 +153,26 @@ set cm=blowfish2               " set cryptmethod to blowfish2
 
 " Define custom mappings with , as leader.
 let mapleader = ","
-nnoremap <leader>, ,
-nnoremap <leader>/ :nohlsearch<CR>
-nnoremap <leader>a :e %:r.hpp<CR>
-map      <leader>b :Buffers<CR>
-map      <leader>c :normal 0i//<CR>
-nnoremap <leader>e :e %:h<CR>
-map      <leader>f :GFiles<CR>
-nnoremap <leader>g mG :Ggrep <C-r><C-w> 
-map      <leader>k :ClangFormat<CR>
-nnoremap <leader>n :NERDTreeFind<CR>
-nnoremap <leader>p <C-w>}
-nnoremap <leader>q :BTags<CR>
-nnoremap <leader>s :e %:r.cpp<CR>
-nnoremap <leader>t :Tags<CR>
-map      <leader>u :s/^\s*\/\///<CR>
-nnoremap <leader>v :vs %:h<CR>
-nnoremap <leader>w <C-w>W
-map      <leader>z va}zf
+noremap  <leader>, ,
+noremap  <leader>/ :nohlsearch<CR>
+noremap  <leader>a :YcmCompleter FixIt<CR>
+noremap  <leader>b :Buffers<CR>
+noremap  <leader>c :normal 0i//<CR>
+noremap  <leader>e :e %:h<CR>
+noremap  <leader>f :GFiles<CR>
+noremap  <leader>g mG :Ggrep <C-r><C-w> 
+noremap  <leader>h :e %:r.hpp<CR>
+noremap  <leader>k :ClangFormat<CR>
+noremap  <leader>l :Lines<CR>
+noremap  <leader>n :NERDTreeFind<CR>
+noremap  <leader>p <C-w>}
+noremap  <leader>q :BTags<CR>
+noremap  <leader>s :e %:r.cpp<CR>
+noremap  <leader>t :Tags<CR>
+noremap  <leader>u :s/^\s*\/\///<CR>
+noremap  <leader>v :vs %:h<CR>
+noremap  <leader>w <C-w>W
+noremap  <leader>z va}zf
 
 " Overriding few default mappings.
 " Enable filtering in command mode when going through history
@@ -246,7 +247,9 @@ function! GoToAddress()
 endfunction
 nmap <leader>gf :call GoToAddress()<CR>
 
-command! -nargs=1 -complete=file Sdbg execute 'make -j20 mode=dbg <args> 2>&1 \| sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g"'
+command! -nargs=0 -complete=file Stest execute 'vertical term scons -j20 runtests=default %:h:%:t:r'
+command! -nargs=0 -complete=file Sopt execute 'vertical term scons mode=opt -j20 runtests=default %:h:%:t:r'
+command! -nargs=0 -complete=file Sdbg execute 'vertical term scons mode=dbg -j20 runtests=default %:h:%:t:r'
 
 " Populate args from quickfix list
 command! -nargs=0 -bar Qargs execute 'args ' . QuickfixFilenames()
