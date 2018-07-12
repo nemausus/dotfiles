@@ -6,6 +6,8 @@
 " 3) Install plugins by launching vim and runing :PluginInstall
 " 4) Setup YouCompleteMe server
 "    $ cd ~/.vim/bundle/YouCompleteMe && ./install.py --clang-completer
+" 5) Setup FZF
+"    $ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install
 
 set nocompatible             " off compatibility with vi
 filetype off                 " enable it after vundle commands
