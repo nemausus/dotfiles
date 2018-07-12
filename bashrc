@@ -57,13 +57,6 @@ function genctags () {
   exfind $1 | ctags --extras=+q -L -
 }
 
-# Generates ctags and cscope tags.
-function genalltags () {
-  genctags $1
-  exfind $1 > /tmp/c.files
-  cscope -b -q -k -i /tmp/c.files
-}
-
 # Makes new Dir and jumps inside.
 function mcd () { 
   mkdir -p "$1" && cd "$1";

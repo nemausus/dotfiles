@@ -1,28 +1,29 @@
-"  Filetype
-set nocompatible             " off compatibility with vi
-filetype plugin indent on    " required
-syntax enable                " required
+" Author : Naresh Kumar
+" Setup steps :
+" 1) Copy this file to ~/.vimrc
+" 2) Configure plugin manager
+"    $ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+" 3) Install plugins by launching vim and runing :PluginInstall
+" 4) Setup YouCompleteMe server
+"    $ cd ~/.vim/bundle/YouCompleteMe && ./install.py --clang-completer
 
-" configure vundle https://github.com/gmarik/Vundle.vim
-" git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-" set the runtime path to include Vundle and initialize
+set nocompatible             " off compatibility with vi
+filetype off                 " enable it after vundle commands
+
+" Set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
-
 Plugin 'gmarik/Vundle.vim'
 
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'junegunn/fzf.vim'
-Plugin 'majutsushi/tagbar'
 Plugin 'nemausus/vim-copyright'
 Plugin 'nemausus/vim-headerguard'
-Plugin 'nemausus/vim-log-syntax'
 Plugin 'rhysd/vim-clang-format'
-Plugin 'scrooloose/nerdtree'
 Plugin 'tpope/vim-abolish'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-surround'
@@ -67,173 +68,108 @@ call vundle#end()
 "    ]t [t : Naviagte tag list. (:tnext :tprevious)
 "    ]T [T :                    (:tlast :tfirst)
 
-set rtp+=~/.fzf
-set rtp+=/usr/local/opt/fzf
-"let g:fzf_history_dir = '~/.local/share/fzf-history'
+" Filetype
+filetype plugin indent on    " required
+syntax enable                " required
 
-" configure ycm plugin
+" Configure ycm plugin
 let g:ycm_always_populate_location_list = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_complete_in_comments = 1
 let g:ycm_confirm_extra_conf = 0
-let g:ycm_seed_identifiers_with_syntax = 1
-set completeopt-=preview
 
-" configure solarized plugin
+" Configure solarized plugin
 set background=dark
 colorscheme solarized
 
-" Indent style; override these explicitly to turn them off.
+" Configure fzf plugin
+set rtp+=~/.fzf
+
+" Indent style
 set shiftwidth=2    " two spaces per indent
 set tabstop=2       " number of spaces per tab in display
 set softtabstop=2   " number of spaces per tab when inserting
 set expandtab       " substitute spaces for tabs
 set autoindent      " carry indent over to new lines
-autocmd Filetype java setlocal tabstop=4 shiftwidth=4 softtabstop=4
-autocmd Filetype javascript setlocal tabstop=4 shiftwidth=4 softtabstop=4
-autocmd Filetype typescript setlocal tabstop=4 shiftwidth=4 softtabstop=4
 
-" better tab completion of file names
-set wildmode=longest,list,full
-set wildmenu
+augroup indent4
+  autocmd!
+  autocmd Filetype python,java setlocal shiftwidth=4 tabstop=4 softtabstop=4
+  autocmd Filetype java setlocal colorcolumn=101
+augroup END
 
-" Display.
-set equalalways     " make sure that windows always remain equal in size.
-set ruler           " show cursor position
-autocmd WinEnter * setlocal cursorline
-autocmd WinLeave * setlocal nocursorline
-set cursorline      " underline current line
+" Enable syntax highlighting for thirft and scons files.
+autocmd BufReadPre *.thrift setlocal filetype=cpp
+autocmd BufReadPre SConstruct,SConscript setlocal filetype=python
+
+" Display
+set colorcolumn=81  " mark column width to 80
 set number          " show line numbers
-set nolist          " hide tabs and EOL chars
-set showcmd         " show normal mode commands as they are entered
-set showmode        " show editing mode in status (-- INSERT --)
-set showmatch       " flash matching delimiters
-set noerrorbells    " no bells in terminal
-set showtabline=2
-set laststatus=2    " always show status line
-set colorcolumn=81,82  " mark column width to 80
-autocmd Filetype java set colorcolumn=101,102
+set splitright      " open file to right in split view
+set mouse=a         " set mouse scroll
+set scrolloff=999   " better scrolling
 
-" Search.
-set hlsearch        " don't persist search highlighting
+" File search
+set wildmode=longest,full
+set wildmenu        " display all matching files on TAB
+set path+=**        " find file recursively
+
+" Text search.
+set hlsearch        " highlight search
 set incsearch       " search with typeahead
 set ignorecase      " case insensitive search
 set smartcase
-set tags=tags;/     " search up the directory tree for tags
 
-" visual bell
-set visualbell
+set history=200     " save command history upto 200
 
-" disable backup and swap files
+" Disable some features 
 set nobackup
 set nowritebackup
 set noswapfile
+set nomodeline
+set belloff=all     " no bells in terminal
 
-" Increase limits
-set undolevels=10000   " number of undos stored
-set undodir=~/.vimundo
-set undofile
-" '=Maximum number of previously edited files for which the marks are remembered.
-" "=Maximum number of lines saved for each register.
-set viminfo='50,"50
-set history=200       " save command history upto 200
-
-" Other.
-set backspace=indent,eol,start " backspace over everything
-set modelines=0                " modelines are bad for your health
-set splitright                 " open file to right in split view
-set wildmode=list:full         " bash like tab completion in command mode
-set path+=**                   " find file recursively
-set scrolloff=999              " better scrolling
-set clipboard=unnamed          " work with system clipboard
-set mouse=a                    " set mouse scroll
-set cm=blowfish2               " set cryptmethod to blowfish2
-
-" Define custom mappings with , as leader.
-let mapleader = ","
-noremap  <leader>, ,
-noremap  <leader>/ :nohlsearch<CR>
-noremap  <leader>a :YcmCompleter FixIt<CR>
-noremap  <leader>b :Buffers<CR>
-noremap  <leader>c :normal 0i//<CR>
-noremap  <leader>e :e %:h<CR>
-noremap  <leader>f :GFiles<CR>
-noremap  <leader>g mG :Ggrep <C-r><C-w> 
-noremap  <leader>h :e %:r.hpp<CR>
-noremap  <leader>k :ClangFormat<CR>
-noremap  <leader>l :Lines<CR>
-noremap  <leader>n :NERDTreeFind<CR>
-noremap  <leader>p <C-w>}
-noremap  <leader>q :BTags<CR>
-noremap  <leader>s :e %:r.cpp<CR>
-noremap  <leader>t :Tags<CR>
-noremap  <leader>u :s/^\s*\/\///<CR>
-noremap  <leader>v :vs %:h<CR>
-noremap  <leader>w <C-w>W
-noremap  <leader>z va}zf
-
-" Overriding few default mappings.
 " Enable filtering in command mode when going through history
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
-nnoremap <C-h> <C-w><C-h>
-nnoremap <C-j> <C-w><C-j>
-nnoremap <C-k> <C-w><C-k>
-nnoremap <C-l> <C-w><C-l>
 
-" search for visual selection using * and #
+" Better navigation between windows
+noremap <C-h> <C-w><C-h>
+noremap <C-j> <C-w><C-j>
+noremap <C-k> <C-w><C-k>
+noremap <C-l> <C-w><C-l>
+
+" Custom commands
+command! -nargs=0 Stest execute 'vert ter scons -j20 runtests=default %:h:%:t:r'
+command! -nargs=0 Sopt execute 'vert ter scons mode=opt -j20 runtests=default %:h:%:t:r'
+command! -nargs=0 Sdbg execute 'vert ter scons mode=dbg -j20 runtests=default %:h:%:t:r'
+
+" Search for visual selection using * and #
 xnoremap * :<C-u>call <SID>VSetSearch()<CR>/<C-R>=@/<CR><CR>
 xnoremap # :<C-u>call <SID>VSetSearch()<CR>?<C-R>=@/<CR><CR>
-function! s:VSetSearch()
+function! <SID>VSetSearch()
   let temp = @s
   norm! gv"sy
   let @/ = '\V' . substitute(escape(@s, '/\'), '\n', '\\n', 'g')
   let @s = temp
 endfunction
 
-" Autorefresh
-set autoread
-" Reload when entering the buffer or gaining focus
-au FocusGained,BufEnter * :silent! !
-" Save when exiting the buffer or losing focus
-au FocusLost,WinLeave * :silent! w
-
-" Kill any trailing whitespace on save.
-fu! <SID>StripTrailingWhitespaces()
+" Remove any trailing whitespace on save.
+function! <SID>StripTrailingWhitespaces()
   let l = line(".")
   let c = col(".")
   %s/\s\+$//e
   call cursor(l, c)
 endfu
 autocmd FileType
-  \ c,cc,cpp,h,hpp,haskell,javascript,php,python,ruby,thrift,proto,typescript
+  \ c,cpp,haskell,java,javascript,php,python,ruby,thrift,proto,typescript
   \ autocmd BufWritePre <buffer>
   \ :call <SID>StripTrailingWhitespaces()
 
-" show output of cmd in new tab
-function! TabMessage(cmd)
-  redir => message
-  silent execute a:cmd
-  redir END
-  if empty(message)
-    echoerr "no output"
-  else
-    " use "new/vnew" instead of "tabnew" below if you prefer
-    " split windows instead of tabs
-    vnew
-    setlocal buftype=nofile bufhidden=wipe noswapfile nobuflisted nomodified
-    silent put=message
-  endif
-endfunction
-command! -nargs=+ -complete=command TabMessage call TabMessage(<q-args>)
-
-"grep current file and open results in new tab.
-command! -nargs=1 Filter execute 'lv <args> %:p | tab lopen'
-
 " Jump to address
-function! GoToAddress()
+function! <SID>GoToAddress()
   let addr=matchstr(getline("."), '0x\x\+')
   if empty(addr)
     let addr="0x".matchstr(getline("."), '\x\+')
@@ -245,32 +181,28 @@ function! GoToAddress()
   silent execute ':vs +'.file[1]." ".file[0]
   echom line
 endfunction
-nmap <leader>gf :call GoToAddress()<CR>
 
-command! -nargs=0 -complete=file Stest execute 'vertical term scons -j20 runtests=default %:h:%:t:r'
-command! -nargs=0 -complete=file Sopt execute 'vertical term scons mode=opt -j20 runtests=default %:h:%:t:r'
-command! -nargs=0 -complete=file Sdbg execute 'vertical term scons mode=dbg -j20 runtests=default %:h:%:t:r'
-
-" Populate args from quickfix list
-command! -nargs=0 -bar Qargs execute 'args ' . QuickfixFilenames()
-function! QuickfixFilenames()
-  " Building a hash ensures we get each buffer only once
-  let buffer_numbers = {}
-  for quickfix_item in getqflist()
-    let buffer_numbers[quickfix_item['bufnr']] = bufname(quickfix_item['bufnr'])
-  endfor
-  return join(values(buffer_numbers))
-endfunction
-
-" Enable syntax highlighting for scons files.
-autocmd BufReadPre SConstruct set filetype=python
-autocmd BufReadPre SConscript set filetype=python
-" Enalble sytax highlighting for log files
-autocmd BufReadPre *.INFO set filetype=glog
-autocmd BufReadPre *.log set filetype=glog
-" Enable syntax highlighting for proto files
-autocmd BufReadPre *.proto set filetype=proto
-" Enable syntax highlighting for thift files
-autocmd BufReadPre *.thrift set filetype=cpp
-autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript
-
+" Custom mappings
+let mapleader = ","
+noremap  <leader>/ :nohlsearch<CR>
+noremap  <leader>a :call <SID>GoToAddress()<CR>
+noremap  <leader>b :Buffers<CR>
+noremap  <leader>c :normal 0i//<CR>
+noremap  <leader>e :e %:h<CR>
+noremap  <leader>f :GFiles<CR>
+noremap  <leader>g mG :Ggrep <C-r><C-w> 
+noremap  <leader>h :e %:r.hpp<CR>
+noremap  <leader>k :ClangFormat<CR>
+noremap  <leader>l :Lines<CR>
+noremap  <leader>p "ap
+noremap  <leader>q :BTags<CR>
+noremap  <leader>s :e %:r.cpp<CR>
+noremap  <leader>t :Tags<CR>
+noremap  <leader>u :s/^\s*\/\///<CR>
+noremap  <leader>v :vs %:h<CR>
+noremap  <leader>w <C-w>W
+noremap  <leader>y "ay
+noremap  <leader>yf :YcmCompleter FixIt<CR>
+noremap  <leader>yg :YcmCompleter GoToDeclaration<CR>
+noremap  <leader>yt :YcmCompleter GetType<CR>
+noremap  <leader>z va}zf

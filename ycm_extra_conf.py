@@ -69,6 +69,7 @@ flags = [
 # Set ThoughtSpot specific include paths.
 '-I', '.',
 '-I', 'build-out',
+'-I', 'build-out/net/rpc',
 '-I', '/usr/local/scaligent/toolchain/local/include',
 '-I', '/usr/local/scaligent/toolchain/local/include/libevent',
 '-I', 'third-party/gtest/gtest-1.7.0/include',
