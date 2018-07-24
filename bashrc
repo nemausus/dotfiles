@@ -54,7 +54,8 @@ function exfind () {
 
 # Generates ctags.
 function genctags () {
-  exfind $1 | ctags --extras=+q -L -
+  FILES=$(echo $1 | sed -e "s/,/|/g")
+  git ls-files | grep -E "\.($FILES)\$" | ctags --c++-kinds=+p --extras=+q -L -
 }
 
 # Makes new Dir and jumps inside.
@@ -165,9 +166,6 @@ alias ......='cd ../../../../../'           # Go back 5 directory levels
 export EDITOR=vim
 export GIT_EDITOR=vim
 export VISUAL=vim
-
-export CPP_FILES="c,h,cpp,hpp,cc,hh,proto,thrift"
-export WEB_FILES="php,css,html,js"
 
 # Add bin to PATH
 export PATH=$JAVA_HOME/bin:$PATH

@@ -111,7 +111,6 @@ set colorcolumn=81  " mark column width to 80
 set number          " show line numbers
 set splitright      " open file to right in split view
 set mouse=a         " set mouse scroll
-set scrolloff=999   " better scrolling
 
 " File search
 set wildmode=longest,full
@@ -144,9 +143,13 @@ noremap <C-k> <C-w><C-k>
 noremap <C-l> <C-w><C-l>
 
 " Custom commands
-command! -nargs=0 Stest execute 'vert ter scons -j20 runtests=default %:h:%:t:r'
-command! -nargs=0 Sopt execute 'vert ter scons mode=opt -j20 runtests=default %:h:%:t:r'
-command! -nargs=0 Sdbg execute 'vert ter scons mode=dbg -j20 runtests=default %:h:%:t:r'
+command! Stest execute 'ter scons -j20 runtests=default %:h:%:t:r'.
+      \' --test_args=--gtest_filter=*'.expand("<cword>")
+command! StestFile execute 'ter scons -j20 runtests=default %:h:%:t:r'
+command! StestDir execute 'ter scons -j20 runtests=default %:h'
+command! Sopt execute 'ter scons -j20 mode=opt %:h:%:t:r'
+command! Sdbg execute 'ter scons -j20 mode=dbg %:h:%:t:r'
+command! Gentags execute '!git ls-files | grep -E "\.(hpp|cpp|proto)$" | ctags --c++-kinds=+p --extras=+q -L -'
 
 " Search for visual selection using * and #
 xnoremap * :<C-u>call <SID>VSetSearch()<CR>/<C-R>=@/<CR><CR>
@@ -180,7 +183,7 @@ function! <SID>GoToAddress()
   let binary=strpart(outfile, 0, strlen(outfile) - 7)
   let line=system("addr2line -e ".binary." ".addr)
   let file=split(split(line)[0], ":")
-  silent execute ':vs +'.file[1]." ".file[0]
+  silent execute ':sp +'.file[1]." ".file[0]
   echom line
 endfunction
 
