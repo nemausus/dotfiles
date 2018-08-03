@@ -88,6 +88,7 @@ colorscheme solarized
 
 " Configure fzf plugin
 set rtp+=~/.fzf
+set rtp+=/usr/local/opt/fzf
 
 " Indent style
 set shiftwidth=2    " two spaces per indent
