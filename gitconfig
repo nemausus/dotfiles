@@ -15,22 +15,22 @@
   diff = true
   interactive = true
 [treediff]
-    tool = vimdiff.py
+  tool = vimdiff.py
 [core]
-    preloadindex = true
+  preloadindex = true
 [user]
   email = naresh.kumar@thoughtspot.com
-  name = naresh
+  name = Naresh
 [diff]
-	tool = vimdiff
+  tool = vimdiff
 [merge]
-	tool = vimdiff
+  tool = vimdiff
 [difftool]
-	prompt = false
+  prompt = false
 [mergetool]
-	prompt = false
+  prompt = false
 [filter "lfs"]
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
-	clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+  clean = git-lfs clean -- %f

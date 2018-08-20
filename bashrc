@@ -168,6 +168,7 @@ export GIT_EDITOR=vim
 export VISUAL=vim
 
 # Add bin to PATH
+export PATH=$HOME/rtags/bin:$PATH
 export PATH=$JAVA_HOME/bin:$PATH
 export PATH=$MAVEN_HOME/bin:$PATH
 export PATH=/usr/local/mysql/bin:$PATH
