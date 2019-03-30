@@ -2,16 +2,14 @@ cd ~/
 if [ "$(uname)" == "Darwin" ]; then
   echo "Setting up Mac"
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-  brew install git
-  brew install vim
-  brew install cmake
+  brew install git vim cmake tmux scons wget maven git-lfs
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
   if [ "$(cat /etc/os-release | head -1 | cut -b 7-12)" == "Ubuntu" ]; then
     echo "Setting up Ubuntu"
-    sudo apt-get install git vim cmake
+    sudo apt-get -y install git vim cmake tmux scons wget
   elif [ "$(cat /etc/os-release | head -1 | cut -b 7-12)" == "CentOS" ]; then
     echo "Setting up CentOS"
-    sudo yum install git vim cmake
+    sudo yum install git vim cmake tmux scons wget
   fi
 fi
 
