@@ -18,9 +18,6 @@
   tool = vimdiff.py
 [core]
   preloadindex = true
-[user]
-  email = naresh.kumar@thoughtspot.com
-  name = Naresh
 [diff]
   tool = vimdiff
 [merge]

@@ -87,8 +87,8 @@ let g:ycm_complete_in_comments = 1
 let g:ycm_confirm_extra_conf = 0
 
 " Configure rtags plugin
-let g:rtagsRdmCmd = "/home/naresh/rtags/bin/rdm"
-let g:rtagsRcCmd = "/home/naresh/rtags/bin/rc"
+let g:rtagsRdmCmd = "~/rtags/bin/rdm"
+let g:rtagsRcCmd = "~/rtags/bin/rc"
 let g:rtagsUseLocationList = 0
 let g:rtagsAutoLaunchRdm = 1
 

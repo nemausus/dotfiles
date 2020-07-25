@@ -63,22 +63,6 @@ function mcd () {
   mkdir -p "$1" && cd "$1";
 }
 
-function sopt () {
-  cd ~/thoughtspot
-  scons mode=opt -j20 $@
-  cd -
-}
-
-function sdbg () {
-  scons mode=dbg -j20 $@
-}
-
-function stest () {
-  cd ~/thoughtspot
-  scons runtests=default -j20 $@
-  cd -
-}
-
 function rebase () {
   branch=$(git_branch)
   git co $1
@@ -94,12 +78,6 @@ function gitpull () {
   git branch | grep -v "master" | xargs git branch -D
   git co origin/$1
   git co -b $1
-}
-
-function gitpush () {
-  ssh naresh@devbox -t "cd thoughtspot && git checkout master"
-  git push origin $1 -f
-  ssh naresh@devbox -t "cd thoughtspot && git checkout $1"
 }
 
 function extract () {
@@ -177,9 +155,3 @@ export NVM_DIR="~/.nvm"
 export NODE_PATH='/usr/local/lib/jsctags:${NODE_PATH}'
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/naresh.kumar/Downloads/google-cloud-sdk/path.bash.inc' ]; then source '/Users/naresh.kumar/Downloads/google-cloud-sdk/path.bash.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/naresh.kumar/Downloads/google-cloud-sdk/completion.bash.inc' ]; then source '/Users/naresh.kumar/Downloads/google-cloud-sdk/completion.bash.inc'; fi

@@ -70,11 +70,8 @@ flags = [
 '-I', '.',
 '-I', 'build-out',
 '-I', 'build-out/net/rpc',
-'-I', '/usr/local/scaligent/toolchain/local/include',
-'-I', '/usr/local/scaligent/toolchain/local/include/libevent',
 '-I', 'third-party/gtest/gtest-1.7.0/include',
 '-I', 'third-party/gmock/gmock-1.7.0/include',
-'-isystem', '/usr/local/scaligent/toolchain/crosstool/v4/x86_64-unknown-linux-gnu/x86_64-unknown-linux-gnu/include',
 '-isystem', '/usr/local/include',
 ]
 
