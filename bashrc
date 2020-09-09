@@ -1,34 +1,40 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
+# .bashrc
+# bashrc is for aliases, functions, and shell configuration intended for use in
+# interactive shells.  However, in some circumstances, bash sources bashrc even
+# in non-interactive shells (e.g., when using scp), so it is standard practice
+# to check for interactivity at the top of .bashrc and return immediately if
+# the shell is not interactive.  The following line does that; don't remove it!
+[[ $- != *i* ]] && return
 
-# If not running interactively, don't do anything
-case $- in
-    *i*) ;;
-      *) return;;
-esac
-
-# Source global definitions
+# Load global definitions
 [ -f /etc/bash.bashrc ] && . /etc/bash.bashrc
+[ -f /etc/bashrc ] && . /etc/bashrc
 
-# Source bash completion.
+# Load work stuff (Don't upload this to github repo)
+[ -f ~/.bashrc_work ] && . ~/.bashrc_work
+
+# Load bash completion.
 [ -f /etc/bash_completion ] && . /etc/bash_completion
 
-# Source linux configs
+# Load linux only configs
 [[ $(uname -s) == "Linux" ]] && . ~/dotfiles/bashrc_linux
 
-# Source mac configs
+# Load mac only configs
 [[ $(uname -s) == "Darwin" ]] && . ~/dotfiles/bashrc_mac
 
-# Source work configs
-[ -f ~/.bashrc_ts ] && . ~/.bashrc_ts
-
-# Source alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
-[ -f ~/.bash_aliases ] && . ~/.bash_aliases
+# Don't limit the size of the history file
+HISTFILESIZE=-1
+# Sets the limit of the in-memory history list to 1 million
+HISTSIZE=1000000
+# Don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+HISTCONTROL=ignoreboth
+# Append to the history file, don't overwrite it
+shopt -s histappend
+# Append new commands to the history file every time it displays a prompt
+# (i.e., after every command finishes). Without this, appending won't happen
+# until Bash exits.
+PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 
 ############################ BEGIN FUNCTIONS ###################################
 # Returns current git branch.
@@ -38,7 +44,7 @@ function git_branch () {
 
 # Returns current hg bookmark.
 function hg_bookmark () {
-  hg bookmarks 2> /dev/null | sed -e "s/^[ \t]*//" -e '/^[^*]/d' -e 's/* \([a-zA-Z0-9_-]*\)[ ]*.*/ (\1)/'
+  hg bookmarks 2> /dev/null | sed -e "s/^[ \t]*//" -e '/^[^*]/d' -e 's/* \([a-zA-Z0-9_-]*\)[ ]*.*/\1/'
 }
 
 # Finds comma seperated file extensions.
@@ -59,8 +65,8 @@ function genctags () {
 }
 
 # Makes new Dir and jumps inside.
-function mcd () { 
-  mkdir -p "$1" && cd "$1";
+function mcd () {
+  mkdir -p "$1" && cd "$1"
 }
 
 function rebase () {
@@ -101,14 +107,6 @@ function extract () {
 ############################## END FUNCTIONS ###################################
 
 
-# Don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
-HISTCONTROL=ignoreboth
-# Append to the history file, don't overwrite it
-shopt -s histappend
-# Try to never forget history
-HISTSIZE=5000000
-HISTFILESIZE=5000000
 # Check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
@@ -124,7 +122,7 @@ PURPLE="\[\033[0;35m\]"
 NO_COLOUR="\[\033[0m\]"
 
 # Customize shell prompt
-PS1="$GREEN\u$NO_COLOUR:\w$YELLOW \$(git_branch)\$(hg_bookmark) $NO_COLOUR$ "
+PS1="$GREEN\u$NO_COLOUR:\W$YELLOW \$(git_branch)\$(hg_bookmark) $NO_COLOUR$ "
 
 
 ################################## ALIASES ####################################
