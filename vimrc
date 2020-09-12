@@ -19,8 +19,9 @@ call vundle#begin()
 "call vundle#begin('~/some/path/here')
 Plugin 'gmarik/Vundle.vim'
 
-Plugin 'Valloric/YouCompleteMe'
+" Plugin 'Valloric/YouCompleteMe'
 
+Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'junegunn/fzf.vim'
