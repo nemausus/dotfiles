@@ -1,10 +1,8 @@
 # Don't limit the size of the history file
-HISTFILESIZE=-1
+HISTFILESIZE=1000000
+SAVEHIST=1000000
 # Sets the limit of the in-memory history list to 1 million
 HISTSIZE=1000000
-# Don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
-HISTCONTROL=ignoreboth
 # Append new commands to the history file every time it displays a prompt
 # (i.e., after every command finishes). Without this, appending won't happen
 # until Bash exits.

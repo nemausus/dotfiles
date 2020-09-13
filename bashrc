@@ -19,6 +19,8 @@
 # Load from shrc
 source ~/dotfiles/shrc
 
+# Don't put duplicate lines in history
+HISTCONTROL=ignoredups
 # Append to the history file, don't overwrite it
 shopt -s histappend
 

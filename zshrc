@@ -8,7 +8,15 @@
 # Load from shrc
 source ~/dotfiles/shrc
 
-setopt prompt_subst
+# Don't put duplicate lines in history
+setopt HIST_IGNORE_DUPS
+# Append to the history file, don't overwrite it
+setopt APPEND_HISTORY
+
+# Allow tab completion in the middle of a word.
+setopt COMPLETE_IN_WORD
+
+setopt PROMPT_SUBST
 PROMPT='%F{green}%n%f:%2~% %F{yellow} $(git_branch)$(hg_bookmark) %f$ '
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
