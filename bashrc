@@ -11,7 +11,7 @@
 [ -f /etc/bashrc ] && . /etc/bashrc
 
 # Load work stuff (Don't upload this to github repo)
-[ -f ~/.bashrc_work ] && . ~/.bashrc_work
+[ -f ~/.bashrc.work ] && . ~/.bashrc.work
 
 # Load bash completion.
 [ -f /etc/bash_completion ] && . /etc/bash_completion
