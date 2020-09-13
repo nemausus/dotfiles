@@ -27,7 +27,7 @@ shopt -s histappend
 shopt -s checkwinsize
 
 # bash completion.
-[[ $(uname -s) == "Darwin" ]] && [ -f $(brew --prefix)/etc/bash_completion ] && . $(brew --prefix)/etc/bash_completion
+[[ $(uname -s) = "Darwin" ]] && [ -f $(brew --prefix)/etc/bash_completion ] && . $(brew --prefix)/etc/bash_completion
 
 # Customize shell prompt
 PS1="$GREEN\u$NO_COLOUR:\W$YELLOW \$(git_branch)\$(hg_bookmark) $NO_COLOUR$ "
