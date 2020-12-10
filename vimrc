@@ -19,12 +19,13 @@ call vundle#begin()
 "call vundle#begin('~/some/path/here')
 Plugin 'gmarik/Vundle.vim'
 
-" Plugin 'Valloric/YouCompleteMe'
+Plugin 'Valloric/YouCompleteMe'
 
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'junegunn/fzf.vim'
+Plugin 'jesseleite/vim-agriculture'
 Plugin 'lyuts/vim-rtags'
 Plugin 'nemausus/vim-copyright'
 Plugin 'nemausus/vim-headerguard'
@@ -158,9 +159,6 @@ noremap <C-j> <C-w><C-j>
 noremap <C-k> <C-w><C-k>
 noremap <C-l> <C-w><C-l>
 
-" Custom commands
-command! Gentags execute '!git ls-files | grep -E "\.(hpp|cpp|proto)$" | ctags --c++-kinds=+p --extras=+q -L -'
-
 " Search for visual selection using * and #
 xnoremap * :<C-u>call <SID>VSetSearch()<CR>/<C-R>=@/<CR><CR>
 xnoremap # :<C-u>call <SID>VSetSearch()<CR>?<C-R>=@/<CR><CR>
@@ -214,35 +212,54 @@ function! OpenFile(file)
   exe 'e '.a:file
 endfunction
 
-command! -nargs=1 Edit call OpenFile(<f-args>)
-
 " Toggle between header and source file.
 function! ToggelCpp()
   let file=expand('%:p')
   let ext=expand('%:t:e')
   let prefix=strpart(file, 0, strlen(file) - strlen(ext))
-  let d = {'hpp':'cpp', 'cpp':'hpp', 'cc':'h', 'h':'cc'}
-  if has_key(d, ext)
-    let ext = d[ext]
+  let header = ['hpp', 'h']
+  let source = ['cpp', 'cc', 'c']
+  let dest = []
+  if index(header, ext) != -1
+    let dest = source
+  elseif index(source, ext) != -1
+    let dest = header
   endif
-  call OpenFile(prefix.ext)
+  for e in dest
+    if filereadable(prefix.e)
+      call OpenFile(prefix.e)
+    endif
+  endfor
+endfunction
+
+function! SplitTargets()
+  let tp = findfile("TARGETS", ".;")
+  if tp == ""
+    echo "TARGETS Not Found"
+  else
+    exe "split " . tp
+  endif
 endfunction
 
 " Custom mappings
 let mapleader = ","
+
 noremap <leader>/ :nohlsearch<CR>
 noremap <leader>a :call GoToAddress()<CR>
 noremap <leader>b :Buffers<CR>
 noremap <leader>c :normal 0i//<CR>
 noremap <leader>e :e %:h<CR>
-noremap <leader>f :call fzf#vim#gitfiles('', {'sink': 'Edit'})<CR>
-noremap <leader>g mG :Ggrep <C-r><C-w>
+let g:wd = ""
+noremap <leader>f :execute 'Files '.g:wd<CR>
+let g:agriculture#disable_smart_quoting = 1
+" noremap <leader>g mG :Ggrep <C-r><C-w><CR>
+noremap <leader>g mG :Bg <C-r><C-w><CR>
+noremap <leader>gl mG :execute 'RgRaw <C-r><C-w> '.g:wd<CR>
 noremap <leader>h :call ToggelCpp()<CR>
 noremap <leader>k :ClangFormat<CR>
 noremap <leader>l :Lines<CR>
 noremap <leader>p "ap
 noremap <leader>q :BTags<CR>
-noremap <leader>s :e %:r.cpp<CR>
 noremap <leader>t :Tags<CR>
 noremap <leader>u :s/^\s*\/\///<CR>
 noremap <leader>v :vs %:h<CR>

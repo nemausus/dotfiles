@@ -20,20 +20,21 @@ function hg_bookmark () {
 }
 
 # Finds comma seperated file extensions.
+#   Usage: exfind folly,common cpp,h,thrift
 function exfind () {
-  cmd="find ."
-  for i in $(echo $@ | tr "," "\n")
-  do
-    cmd=$cmd' -name '*.$i' -o'
-  done
-  cmd=$(echo $cmd | sed s/..$//)
-  $cmd
+  DIRS=$(echo $1 | sed -e "s/,/ /g")
+  FILES=$(echo $2 | sed -e "s/,/|/g")
+  CMD='find'
+  if [ -d .git ]; then
+    CMD='git ls-files';
+  fi;
+  $CMD $DIRS | grep -E "\.($FILES)\$"
 }
 
 # Generates ctags.
+#   Usage: exfind folly,common cpp,h,thrift | genctags
 function genctags () {
-  FILES=$(echo $1 | sed -e "s/,/|/g")
-  git ls-files | grep -E "\.($FILES)\$" | ctags --c++-kinds=+p --extras=+q -L -
+  ctags --c++-kinds=+p --extras=+q -L -
 }
 
 # Makes new Dir and jumps inside.
@@ -41,21 +42,14 @@ function mcd () {
   mkdir -p "$1" && cd "$1"
 }
 
+# Rebases current branch on top of given branch
+#   Usage: rebase master
 function rebase () {
   branch=$(git_branch)
   git co $1
   git pull --rebase
   git co $branch
   git rebase $1
-}
-
-function gitpull () {
-  git co master
-  git pull --rebase
-  git fetch -p
-  git branch | grep -v "master" | xargs git branch -D
-  git co origin/$1
-  git co -b $1
 }
 
 function extract () {
@@ -112,6 +106,7 @@ export PATH=$HOME/rtags/bin:$PATH
 export PATH=$JAVA_HOME/bin:$PATH
 export PATH=$MAVEN_HOME/bin:$PATH
 export PATH=/usr/local/mysql/bin:$PATH
+export PATH=/usr/local/bin:$PATH
 export NVM_DIR="~/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 export NODE_PATH='/usr/local/lib/jsctags:${NODE_PATH}'
