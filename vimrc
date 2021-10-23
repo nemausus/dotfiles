@@ -76,6 +76,27 @@ call vundle#end()
 "    ]t [t : Naviagte tag list. (:tnext :tprevious)
 "    ]T [T :                    (:tlast :tfirst)
 
+source $LOCAL_ADMIN_SCRIPTS/master.vimrc
+source $LOCAL_ADMIN_SCRIPTS/vim/filetype.vim
+
+let repo_path = system('hg root')
+let repo_initial = 'f'
+if repo_path =~# 'configerator'
+    let repo_initial = 'c'
+elseif repo_path =~# 'www'
+    let repo_initial = 't'
+elseif repo_path =~# 'fbcode'
+    let repo_initial = 'f'
+endif
+
+command! -bang -nargs=* Bg
+  \ call fzf#vim#grep(
+  \   repo_initial . 'bgs --color=on '.shellescape(<q-args>) .
+  \ '| sed "s,^[^/]*/,,"' .
+  \ '| sed "s#^#$(hg root)/#g"', 1,
+  \   fzf#vim#with_preview('up:60%'),
+  \   <bang>0)
+
 " Filetype
 filetype plugin indent on    " required
 syntax enable                " required
@@ -232,14 +253,15 @@ function! ToggelCpp()
   endfor
 endfunction
 
-function! SplitTargets()
+function! GotoTarget()
   let tp = findfile("TARGETS", ".;")
   if tp == ""
     echo "TARGETS Not Found"
   else
-    exe "split " . tp
+    exe "vsplit " . tp
   endif
 endfunction
+command! GotoTarget call GotoTarget()
 
 " Custom mappings
 let mapleader = ","
@@ -247,14 +269,13 @@ let mapleader = ","
 noremap <leader>/ :nohlsearch<CR>
 noremap <leader>a :call GoToAddress()<CR>
 noremap <leader>b :Buffers<CR>
+noremap <leader>bg mG :Bg <C-r><C-w><CR>
 noremap <leader>c :normal 0i//<CR>
 noremap <leader>e :e %:h<CR>
 let g:wd = ""
 noremap <leader>f :execute 'Files '.g:wd<CR>
 let g:agriculture#disable_smart_quoting = 1
-" noremap <leader>g mG :Ggrep <C-r><C-w><CR>
-noremap <leader>g mG :Bg <C-r><C-w><CR>
-noremap <leader>gl mG :execute 'RgRaw <C-r><C-w> '.g:wd<CR>
+noremap <leader>g mG :RgRaw TERM DIR
 noremap <leader>h :call ToggelCpp()<CR>
 noremap <leader>k :ClangFormat<CR>
 noremap <leader>l :Lines<CR>
