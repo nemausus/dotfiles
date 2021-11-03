@@ -14,17 +14,12 @@
   branch = true
   diff = true
   interactive = true
-[treediff]
-  tool = vimdiff.py
 [core]
   preloadindex = true
+  editor = vim
 [diff]
   tool = vimdiff
-[merge]
-  tool = vimdiff
 [difftool]
-  prompt = false
-[mergetool]
   prompt = false
 [filter "lfs"]
   smudge = git-lfs smudge -- %f
@@ -33,3 +28,9 @@
   clean = git-lfs clean -- %f
 [include]
   path = ~/.gitconfig.work
+[merge]
+  tool = vimdiff
+[mergetool]
+  prompt = false
+[treediff]
+  tool = vimdiff.py

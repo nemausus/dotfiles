@@ -21,31 +21,68 @@ Plugin 'gmarik/Vundle.vim'
 
 Plugin 'Valloric/YouCompleteMe'
 
+" Provides the following mappings to move between Vim panes and tmux splits.
+"   <ctrl-h> => Left
+"   <ctrl-j> => Down
+"   <ctrl-k> => Up
+"   <ctrl-l> => Right
+"   <ctrl-\> => Previous split
 Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'airblade/vim-gitgutter'
+
+" Shows signs for added, modified, and removed lines.
+" Quick jumping between blocks of changed lines ("hunks").
+"   ]-c => next hunk
+"   [-c => previous hunk
+"   ]-C => first hunk
+"   [-C => last hunk
+"   :SignifyDiff      => open diff mode
+"   :SignifyHunkDiff  => open diff mode
+"   :SignifyFold      => open changed lines with context
+"   :SignifyHunkUndo  => Undo current hunk
+Plugin 'mhinz/vim-signify'
+
+" Solarized color scheme
 Plugin 'altercation/vim-colors-solarized'
+
+" Commands to fuzzy search on:
+"   :Files [PATH] => Files from FZF_DEFAULT_COMMAND
+"   :GFiles       => Git files
+"   :Buffers      => Open buffers
+"   :Ag [PATTERN] => silver search result
+"   :Rg [PATTERN] => ripgrep search result
+"   :Lines        => Lines in loaded buffers
+"   :BLines       => Lines in current buffer
+"   :Tags [QUERY] => Tags in project
+"   :BTags [QUERY]=> Tags in current buffer
+"   :Commits      => Git commits
+"   :BCommits     => Git commits for current buffer
+"   :Commands     => Commands
+"   :Maps         => Normal mode mappings
+"   ctrl-t / ctrl-x / ctrl-v to open in a new tab / split / vertical split
 Plugin 'junegunn/fzf.vim'
+
+" :AgRaw and :RgRaw with ability to provide commnad line options and enable
+" multi word search. Example for case insensitive search in a directory
+"   :RgRaw -i [PATTERN] [PATH]
 Plugin 'jesseleite/vim-agriculture'
+
+" Bindings for C++ indexer server
+"   <Leader>rj  => Follow location
+"   <Leader>rJ  => Follow declaration location
+"   <Leader>rf  => Find references
 Plugin 'lyuts/vim-rtags'
-Plugin 'nemausus/vim-copyright'
-Plugin 'nemausus/vim-headerguard'
+
+" Color highlight for logs files. To enable
+" :set ft=flog
 Plugin 'nemausus/vim-log-syntax'
-Plugin 'nemausus/vim-scons'
+
+" :ClangFormat
+" :'<,'>ClangFormat
 Plugin 'rhysd/vim-clang-format'
-Plugin 'tpope/vim-abolish'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-unimpaired'
 
-" All of your Plugins must be added before the following line
-call vundle#end()
-
-" keyboard shortcuts added by above plugins
-" vim-gitgutter
-"   [c ]c : Jump between changed hunks
-"   <leader>hp hs hu : preview, stage and undo chunks
-"
-" vim-abolish
+" Work efficiently with variants of words
+" :%Subvert/facilit{y,ies}/building{,s}/g
+" :%Subvert/child{,ren}/adult{,s}/g
 "   crs : change to snake_case.
 "   crm : change to MixedCase.
 "   crc : change to camelCase.
@@ -54,27 +91,38 @@ call vundle#end()
 "   cr. : change to dot.case.
 "   cr<space> : chage to space case.
 "   crt : change to Title case.
-"
+Plugin 'tpope/vim-abolish'
+Plugin 'tpope/vim-fugitive'
+
 " vim-surround
 "   cs"' : change "hello world" to 'hello world'
 "   ds"  : change "hello world" to hello world
 "   yssb : surround entire line by )
 "   ysiw} : surround current word by }
-"
+Plugin 'tpope/vim-surround'
+
 "  vim-unimpaired
-"    ]c [c : Naviagte changed hunks.
+"    ]c [c : Navigate changed hunks.
 "    ]n [n : Navigate merge conflicts.
 "    ]f [f : Navigate files in current directory.
-"    ]q [q : Naviagte quickfix list. (:cnext :cprevious)
+"    ]q [q : Navigate quickfix list. (:cnext :cprevious)
 "    ]Q [Q :                         (:clast :cfirst)
-"    ]l [l : Naviagte location list. (:lnext :lprevious)
+"    ]l [l : Navigate location list. (:lnext :lprevious)
 "    ]L [L :                         (:llast :lfirst)
 "    ]a [a : Navigate files from argument list. (:next :previous)
 "    ]A [A :                                    (:last :first)
-"    ]b [b : Naviagte buffers. (:bnext :bprevious)
+"    ]b [b : Navigate buffers. (:bnext :bprevious)
 "    ]B [B :                   (:blast :bfirst)
-"    ]t [t : Naviagte tag list. (:tnext :tprevious)
+"    ]t [t : Navigate tag list. (:tnext :tprevious)
 "    ]T [T :                    (:tlast :tfirst)
+Plugin 'tpope/vim-unimpaired'
+
+"Plugin 'nemausus/vim-scons'
+"Plugin 'nemausus/vim-copyright'
+"Plugin 'nemausus/vim-headerguard'
+" All of your Plugins must be added before the following line
+call vundle#end()
+
 
 source $LOCAL_ADMIN_SCRIPTS/master.vimrc
 source $LOCAL_ADMIN_SCRIPTS/vim/filetype.vim
@@ -108,6 +156,7 @@ let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_complete_in_comments = 1
 let g:ycm_confirm_extra_conf = 0
+let g:ycm_enable_diagnostic_highlighting = 0
 
 " Configure rtags plugin
 let g:rtagsRdmCmd = "~/rtags/bin/rdm"
@@ -198,7 +247,7 @@ function! StripTrailingWhitespaces()
   call cursor(l, c)
 endfu
 autocmd FileType
-  \ c,cpp,haskell,java,javascript,php,python,ruby,thrift,proto,typescript
+  \ c,cpp,haskell,java,javascript,php,proto,python,ruby,readme,text,thrift,typescript
   \ autocmd BufWritePre <buffer>
   \ :call StripTrailingWhitespaces()
 
@@ -281,6 +330,9 @@ noremap <leader>k :ClangFormat<CR>
 noremap <leader>l :Lines<CR>
 noremap <leader>p "ap
 noremap <leader>q :BTags<CR>
+nnoremap <leader>sd :SignifyDiff<cr>
+nnoremap <leader>sp :SignifyHunkDiff<cr>
+nnoremap <leader>su :SignifyHunkUndo<cr>
 noremap <leader>t :Tags<CR>
 noremap <leader>u :s/^\s*\/\///<CR>
 noremap <leader>v :vs %:h<CR>
