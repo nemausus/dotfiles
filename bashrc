@@ -178,4 +178,6 @@ fi
 if [ $(uname -s) = "Darwin" ]; then
   export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_201.jdk/Contents/Home"
   export CLICOLOR=1
+  export PATH="/usr/local/opt/php@7.3/bin:$PATH"
+  export PATH="/usr/local/opt/php@7.3/sbin:$PATH"
 fi

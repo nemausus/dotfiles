@@ -17,8 +17,9 @@ ln -sf dotfiles/ycm_extra_conf.py .ycm_extra_conf.py
 
 if [ "$(uname)" = "Darwin" ]; then
   echo "Setting up Mac"
-  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-  brew install git vim cmake tmux scons wget maven git-lfs
+  # /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  brew install git vim cmake tmux scons wget maven git-lfs ripgrep
 elif [ "$(expr substr $(uname -s) 1 5)" = "Linux" ]; then
   if [ "$(cat /etc/os-release | head -1 | cut -b 7-12)" = "Ubuntu" ]; then
     echo "Setting up Ubuntu"
