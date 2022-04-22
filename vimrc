@@ -141,13 +141,15 @@ elseif repo_path =~# 'fbcode'
     let repo_initial = 'f'
 endif
 
-command! -bang -nargs=* Bg
+command! -bang -nargs=* Bgs
   \ call fzf#vim#grep(
-  \   repo_initial . 'bgs --color=on '.shellescape(<q-args>) .
-  \ '| sed "s,^[^/]*/,,"' .
-  \ '| sed "s#^#$(hg root)/#g"', 1,
-  \   fzf#vim#with_preview('up:60%'),
-  \   <bang>0)
+  \   repo_initial . 'bgs --color=on -s '.shellescape(<q-args>),
+  \   1, fzf#vim#with_preview(), <bang>0)
+
+command! -bang -nargs=* Bgf
+  \ call fzf#vim#grep(
+  \   repo_initial . 'bgf --color=on -s -i '.shellescape(<q-args>),
+  \   1, fzf#vim#with_preview(), <bang>0)
 
 " Filetype
 filetype plugin indent on    " required
@@ -352,7 +354,6 @@ let mapleader = ","
 noremap <leader>/ :nohlsearch<CR>
 noremap <leader>a :call GoToAddress()<CR>
 noremap <leader>b :Buffers<CR>
-noremap <leader>bg mG :Bg <C-r><C-w><CR>
 noremap <leader>c :normal 0i//<CR>
 noremap <leader>e :e %:h<CR>
 let g:wd = ""
