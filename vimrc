@@ -128,9 +128,6 @@ Plugin 'tpope/vim-unimpaired'
 call vundle#end()
 
 
-source $LOCAL_ADMIN_SCRIPTS/master.vimrc
-source $LOCAL_ADMIN_SCRIPTS/vim/filetype.vim
-
 let repo_path = system('hg root')
 let repo_initial = 'f'
 if repo_path =~# 'configerator'
