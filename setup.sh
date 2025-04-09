@@ -13,7 +13,7 @@ ln -sf dotfiles/bashrc .zshrc
 ln -sf dotfiles/vimrc .vimrc
 ln -sf dotfiles/tmux.conf .tmux.conf
 ln -sf dotfiles/gitconfig .gitconfig
-ln -sf dotfiles/ycm_extra_conf.py .ycm_extra_conf.py
+# ln -sf dotfiles/ycm_extra_conf.py .ycm_extra_conf.py
 
 if [ "$(uname)" = "Darwin" ]; then
   echo "Setting up Mac"
@@ -37,4 +37,4 @@ fi
 # Install vim plugins
 vim +PluginInstall +qall
 # Setup ycm plugin
-cd ~/.vim/bundle/YouCompleteMe && ./install.py --clang-completer
+# cd ~/.vim/bundle/YouCompleteMe && ./install.py --clang-completer

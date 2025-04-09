@@ -19,7 +19,8 @@ call vundle#begin()
 "call vundle#begin('~/some/path/here')
 Plugin 'gmarik/Vundle.vim'
 
-Plugin 'Valloric/YouCompleteMe'
+" Plugin 'Valloric/YouCompleteMe'
+Plugin 'maralla/completor.vim'
 
 " Provides the following mappings to move between Vim panes and tmux splits.
 "   <ctrl-h> => Left
@@ -153,13 +154,18 @@ filetype plugin indent on    " required
 syntax enable                " required
 
 " Configure ycm plugin
-let g:ycm_always_populate_location_list = 1
-let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_collect_identifiers_from_comments_and_strings = 1
-let g:ycm_collect_identifiers_from_tags_files = 1
-let g:ycm_complete_in_comments = 1
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_enable_diagnostic_highlighting = 0
+" let g:ycm_always_populate_location_list = 1
+" let g:ycm_autoclose_preview_window_after_completion = 1
+" let g:ycm_collect_identifiers_from_comments_and_strings = 1
+" let g:ycm_collect_identifiers_from_tags_files = 1
+" let g:ycm_complete_in_comments = 1
+" let g:ycm_confirm_extra_conf = 0
+" let g:ycm_enable_diagnostic_highlighting = 0
+
+" Configure Completor
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
 
 " Configure rtags plugin
 let g:rtagsRdmCmd = "~/rtags/bin/rdm"
