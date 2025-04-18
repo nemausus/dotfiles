@@ -18,9 +18,6 @@ else
   [[ $(uname -s) = "Darwin" ]] && [ -f $(brew --prefix)/etc/bash_completion ] && . $(brew --prefix)/etc/bash_completion;
 fi
 
-# Load work stuff (Don't upload this to github repo)
-[ -f ~/.bashrc.work ] && . ~/.bashrc.work
-
 # Don't limit the size of the history file
 HISTFILESIZE=1000000
 SAVEHIST=1000000
@@ -181,3 +178,6 @@ if [ $(uname -s) = "Darwin" ]; then
   export PATH="/usr/local/opt/php@7.3/bin:$PATH"
   export PATH="/usr/local/opt/php@7.3/sbin:$PATH"
 fi
+
+# Load work stuff (Don't upload this to github repo)
+[ -f ~/.bashrc.work ] && . ~/.bashrc.work
